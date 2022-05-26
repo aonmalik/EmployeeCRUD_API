@@ -21,7 +21,7 @@ namespace Service.Abstraction
         //update employee
         public string UpdateEmployee(EmployeeDTO emp);
 
-        public EmployeeDispDTOS GetUser(string userName, string password);      
+        public EmployeeDTO GetEmployeeByIdandPassword(string username, string password);      
 
        
     }

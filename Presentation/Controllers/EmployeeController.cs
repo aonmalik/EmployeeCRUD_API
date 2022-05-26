@@ -1,4 +1,6 @@
 ﻿using Contracts;
+using Domain;
+using Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Abstraction;
@@ -13,53 +15,54 @@ namespace Presentation.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
-    public class EmployeeController:ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private IEmployeeService _empService;
-        public EmployeeController(IEmployeeService empservice)
+        private IEmployeeService _service;
+        public EmployeeController(IEmployeeService service)
         {
-            _empService = empservice;
+            _service = service;
         }
-        //[AllowAnonymous]
-
-        //public IActionResult Login(string UserName, string Password)
-        //{
-        //   var user=_e
-        //}
-
- 
 
         //get all employees
         [HttpGet("getall")]
+        
         public IActionResult GetAllEmployees()
         {
-            return Ok(_empService.getAll());
+            if (User.Identity.IsAuthenticated)
+                return Ok(_service.getAll());
+            else
+                return Unauthorized("You are not Authorized!");
 
         }
         //get employee by id
         [HttpGet("{id}")]
         public IActionResult GetEmployeeById(int id)
         {
-
-            return Ok(_empService.GetEmployeeById(id)) ; 
+            return Ok(_service.GetEmployeeById(id) ); 
         }
         //add employee
         [HttpPost("add")]
-        public IActionResult AddEmployeeRecord(EmployeeDTO empdto)
+        public IActionResult AddEmployeeRecord(EmployeeDTO emp)
         {
-           return Ok(_empService.AddEmployee(empdto));
+            if (User.Identity.IsAuthenticated && User.IsInRole("1"))
+                return Ok(_service.AddEmployee(emp));
+            return Unauthorized("You are not authorized to add employee!");
         }
         //remove employee
         [HttpDelete("remove")]
         public IActionResult DeleteEmployee(int Id)
         {
-            return Ok(_empService.RemoveEmployee(Id));
+            if (User.Identity.IsAuthenticated && User.IsInRole("1"))
+                return Ok(_service.RemoveEmployee(Id));
+            return Unauthorized("You are not authorized to delete employee!");
         }
         //update employee
         [HttpPut("update")]
         public IActionResult UpdateEmployee(EmployeeDTO empdto)
         {
-            return Ok(_empService.UpdateEmployee(empdto));
+            if (User.Identity.IsAuthenticated && User.IsInRole("1"))
+                return Ok(_service.UpdateEmployee(empdto));
+            return Unauthorized("You are not authorized to update employee!");
         }
     }
 }

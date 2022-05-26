@@ -25,13 +25,14 @@ namespace Persistence.Repositories
             return "success";
         }
 
-        public string editEmployee(int Id)
+        public string editEmployee(EmployeeDTO emp)
         {
-            var em = _empDbContext.Employees.Where(x=>x.EmployeeId==Id).FirstOrDefault();
-            em.EmployeeName = em.EmployeeName;
-            em.EmployeeAddress = em.EmployeeAddress;
-            em.EmployeeEmail = em.EmployeeEmail;
-            em.EmployeeSalary = em.EmployeeSalary;
+            var em = _empDbContext.Employees.Where(x=>x.EmployeeId==emp.EmployeeId).FirstOrDefault();
+            em.EmployeeName = emp.EmployeeName;
+            em.EmployeePassword = emp.EmployeePassword;
+            em.UserTypeId = emp.UserTypeId;
+            em.EmployeeAddress = emp.EmployeeAddress;
+            em.EmployeeEmail = emp.EmployeeEmail;
             _empDbContext.SaveChanges();
             return "Employee updated!";
         }
@@ -47,6 +48,13 @@ namespace Persistence.Repositories
            var m= _empDbContext.Employees.Where(x => x.EmployeeId == Id).FirstOrDefault();
             return m;
         }
+
+        public Employee GetUserByIdandPassword(string username, string password)
+        {
+            var employee = _empDbContext.Employees.Where(x => x.EmployeeName == username && x.EmployeePassword == password).FirstOrDefault();
+            return employee;
+        }
+
         public string removeEmployee(int Id)
         {
           var em=  _empDbContext.Employees.Where(y=>y.EmployeeId==Id).FirstOrDefault();
@@ -62,5 +70,7 @@ namespace Persistence.Repositories
             
             
         }
+
+
     }
 }

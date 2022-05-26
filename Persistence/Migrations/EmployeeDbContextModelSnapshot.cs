@@ -34,14 +34,11 @@ namespace Persistence.Migrations
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeePassword")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("EmployeeSalary")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserPassword")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");

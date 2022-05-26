@@ -48,9 +48,11 @@ namespace Service.Implementation
            return empdto;
         }
 
-        public EmployeeDispDTOS GetUser(string userName, string password)
+        public EmployeeDTO GetEmployeeByIdandPassword(string userName, string password)
         {
-            throw new NotImplementedException();
+           var user= _employeeRepository.GetUserByIdandPassword(userName, password);
+            var userdto = user.Adapt<EmployeeDTO>();
+            return userdto;
         }
 
         public string RemoveEmployee(int Id)
@@ -61,7 +63,7 @@ namespace Service.Implementation
 
         public string UpdateEmployee(EmployeeDTO emp)
         {
-            _employeeRepository.editEmployee(emp.EmployeeId);
+            _employeeRepository.editEmployee(emp);
             return "Record is Added Successfully";
         }
     }

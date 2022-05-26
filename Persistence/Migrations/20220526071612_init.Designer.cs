@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20220524080005_init")]
+    [Migration("20220526071612_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,14 +36,11 @@ namespace Persistence.Migrations
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeePassword")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("EmployeeSalary")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserPassword")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");

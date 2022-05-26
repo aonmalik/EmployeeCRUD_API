@@ -27,8 +27,7 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserTypeId = table.Column<int>(type: "int", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeePassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeSalary = table.Column<int>(type: "int", nullable: false)
