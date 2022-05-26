@@ -14,10 +14,10 @@ namespace Service.Implementation
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        private readonly IRepositoryManager _repositoryManager;
+        public EmployeeService(IRepositoryManager repositoryManager)
         {
-            _employeeRepository = employeeRepository;
+            _repositoryManager = repositoryManager;
         }
 
        
@@ -26,14 +26,14 @@ namespace Service.Implementation
         {
             var emp = empdto.Adapt<Employee>();
             emp.UserTypeId = empdto.UserTypeId;
-            _employeeRepository.addEmployee(emp);
+            _repositoryManager.employeeRepository.addEmployee(emp);
             return "record is added successfully";  
         }
 
         public List<EmployeeDTO> getAll()
         {
             List<EmployeeDTO> empdto = new List<EmployeeDTO>();
-            List<Employee> emp = _employeeRepository.GetAllEmployees();
+            List<Employee> emp = _repositoryManager.employeeRepository.GetAllEmployees();
             foreach(var e in emp)
             {
                 empdto.Add(e.Adapt<EmployeeDTO>());
@@ -43,27 +43,27 @@ namespace Service.Implementation
 
         public EmployeeDTO GetEmployeeById(int Id)
         {
-            var emp = _employeeRepository.getEmployeeById(Id);
+            var emp = _repositoryManager.employeeRepository.getEmployeeById(Id);
            var empdto= emp.Adapt<EmployeeDTO>();
            return empdto;
         }
 
         public EmployeeDTO GetEmployeeByIdandPassword(string userName, string password)
         {
-           var user= _employeeRepository.GetUserByIdandPassword(userName, password);
+           var user= _repositoryManager.employeeRepository.GetUserByIdandPassword(userName, password);
             var userdto = user.Adapt<EmployeeDTO>();
             return userdto;
         }
 
         public string RemoveEmployee(int Id)
         {
-            _employeeRepository.removeEmployee(Id);
+            _repositoryManager.employeeRepository.removeEmployee(Id);
             return "success";
         }
 
         public string UpdateEmployee(EmployeeDTO emp)
         {
-            _employeeRepository.editEmployee(emp);
+            _repositoryManager.employeeRepository.editEmployee(emp);
             return "Record is Added Successfully";
         }
     }

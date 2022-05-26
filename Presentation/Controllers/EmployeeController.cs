@@ -17,10 +17,10 @@ namespace Presentation.Controllers
     [AllowAnonymous]
     public class EmployeeController : ControllerBase
     {
-        private IEmployeeService _service;
-        public EmployeeController(IEmployeeService service)
+        private readonly IServiceManager _serviceManager;
+        public EmployeeController(IServiceManager serviceManager)
         {
-            _service = service;
+            _serviceManager = serviceManager;
         }
 
         //get all employees
@@ -29,7 +29,7 @@ namespace Presentation.Controllers
         public IActionResult GetAllEmployees()
         {
             if (User.Identity.IsAuthenticated)
-                return Ok(_service.getAll());
+                return Ok(_serviceManager.employeeService.getAll());
             else
                 return Unauthorized("You are not Authorized!");
 
@@ -38,14 +38,14 @@ namespace Presentation.Controllers
         [HttpGet("{id}")]
         public IActionResult GetEmployeeById(int id)
         {
-            return Ok(_service.GetEmployeeById(id) ); 
+            return Ok(_serviceManager.employeeService.GetEmployeeById(id) ); 
         }
         //add employee
         [HttpPost("add")]
         public IActionResult AddEmployeeRecord(EmployeeDTO emp)
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("1"))
-                return Ok(_service.AddEmployee(emp));
+                return Ok(_serviceManager.employeeService.AddEmployee(emp));
             return Unauthorized("You are not authorized to add employee!");
         }
         //remove employee
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
         public IActionResult DeleteEmployee(int Id)
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("1"))
-                return Ok(_service.RemoveEmployee(Id));
+                return Ok(_serviceManager.employeeService.RemoveEmployee(Id));
             return Unauthorized("You are not authorized to delete employee!");
         }
         //update employee
@@ -61,7 +61,7 @@ namespace Presentation.Controllers
         public IActionResult UpdateEmployee(EmployeeDTO empdto)
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("1"))
-                return Ok(_service.UpdateEmployee(empdto));
+                return Ok(_serviceManager.employeeService.UpdateEmployee(empdto));
             return Unauthorized("You are not authorized to update employee!");
         }
     }

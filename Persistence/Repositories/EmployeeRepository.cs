@@ -11,57 +11,57 @@ namespace Persistence.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly EmployeeDbContext _empDbContext;
+        private readonly EmployeeDbContext _employeeDbContext;
 
-        public EmployeeRepository(EmployeeDbContext empDbContext)
+        public EmployeeRepository(EmployeeDbContext employeeDbContext)
         {
-            _empDbContext = empDbContext;
+            _employeeDbContext = employeeDbContext;
         }
 
         public string addEmployee(Employee emp)
         {
-            _empDbContext.Employees.Add(emp);
-            _empDbContext.SaveChanges();
+            _employeeDbContext.Employees.Add(emp);
+            _employeeDbContext.SaveChanges();
             return "success";
         }
 
         public string editEmployee(EmployeeDTO emp)
         {
-            var em = _empDbContext.Employees.Where(x=>x.EmployeeId==emp.EmployeeId).FirstOrDefault();
+            var em = _employeeDbContext.Employees.Where(x=>x.EmployeeId==emp.EmployeeId).FirstOrDefault();
             em.EmployeeName = emp.EmployeeName;
             em.EmployeePassword = emp.EmployeePassword;
             em.UserTypeId = emp.UserTypeId;
             em.EmployeeAddress = emp.EmployeeAddress;
             em.EmployeeEmail = emp.EmployeeEmail;
-            _empDbContext.SaveChanges();
+            _employeeDbContext.SaveChanges();
             return "Employee updated!";
         }
 
         public List<Employee> GetAllEmployees()
         {
-           var empall= _empDbContext.Employees.ToList();
+           var empall= _employeeDbContext.Employees.ToList();
             return empall; 
         }
 
         public Employee getEmployeeById(int Id)
         {
-           var m= _empDbContext.Employees.Where(x => x.EmployeeId == Id).FirstOrDefault();
+           var m= _employeeDbContext.Employees.Where(x => x.EmployeeId == Id).FirstOrDefault();
             return m;
         }
 
         public Employee GetUserByIdandPassword(string username, string password)
         {
-            var employee = _empDbContext.Employees.Where(x => x.EmployeeName == username && x.EmployeePassword == password).FirstOrDefault();
+            var employee = _employeeDbContext.Employees.Where(x => x.EmployeeName == username && x.EmployeePassword == password).FirstOrDefault();
             return employee;
         }
 
         public string removeEmployee(int Id)
         {
-          var em=  _empDbContext.Employees.Where(y=>y.EmployeeId==Id).FirstOrDefault();
+          var em=  _employeeDbContext.Employees.Where(y=>y.EmployeeId==Id).FirstOrDefault();
             if (em != null)
             {
-               _empDbContext.Employees.Remove(em);
-                _empDbContext.SaveChanges();
+               _employeeDbContext.Employees.Remove(em);
+                _employeeDbContext.SaveChanges();
                 return "Successfully Removed";
             }
             else

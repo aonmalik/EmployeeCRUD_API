@@ -20,16 +20,16 @@ namespace Presentation.Controllers
     [AllowAnonymous]
     public class LoginController : ControllerBase
     {
-        private readonly IEmployeeService _employeeService;
-        public LoginController(IEmployeeService employeeService)
+        private readonly IServiceManager _serviceManager;
+        public LoginController(IServiceManager serviceManager)
         {
-            _employeeService = employeeService;
+            _serviceManager = serviceManager;
         }
         [HttpPost("login")]
         //dfhfghdfgjfhjghg
         public IActionResult Login(string username,string password)
         {
-           var user = _employeeService.GetEmployeeByIdandPassword(username, password);
+           var user = _serviceManager.employeeService.GetEmployeeByIdandPassword(username, password);
             if (user != null)
             {
                 var claims = new List<Claim>

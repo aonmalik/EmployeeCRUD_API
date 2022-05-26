@@ -37,8 +37,8 @@ namespace EmployeeCrud_API
             //Authentication Scheme Using Cookei
             services.AddControllers();
             services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter()));
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IRepositoryManager,RepositoryManager>();
+            services.AddScoped<IServiceManager,ServiceManager>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
             services.AddDbContext<EmployeeDbContext>(connection => connection.UseSqlServer(Configuration.GetConnectionString("Default")));

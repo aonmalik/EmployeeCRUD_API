@@ -15,11 +15,8 @@ namespace Persistence
         public DbSet<Employee> Employees { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelbuilder)
-        {
-            base.OnModelCreating(modelbuilder);
-           
-        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EmployeeDbContext).Assembly);
 
     }
 }
