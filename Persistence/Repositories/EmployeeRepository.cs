@@ -25,7 +25,7 @@ namespace Persistence.Repositories
             return "success";
         }
 
-        public string editEmployee(EmployeeDTO emp)
+        public string editEmployee(Employee emp)
         {
             var em = _employeeDbContext.Employees.Where(x=>x.EmployeeId==emp.EmployeeId).FirstOrDefault();
             em.EmployeeName = emp.EmployeeName;

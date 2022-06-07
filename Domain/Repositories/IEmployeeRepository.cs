@@ -13,7 +13,7 @@ namespace Domain.Repositories
         public Employee getEmployeeById(int Id);
         public string addEmployee(Employee emp);
         public string removeEmployee(int Id);
-        public string editEmployee(EmployeeDTO emp);
+        public string editEmployee(Employee emp);
         public Employee GetUserByIdandPassword(string username, string password);
       
 
